@@ -1,6 +1,7 @@
 #!/bin/bash
 
 
+
 pipeline {
     agent {
             docker {
