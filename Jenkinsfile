@@ -40,9 +40,11 @@ pipeline {
             steps {
                 withSonarQubeEnv("${SONARQUBE}") {
                     sh """
-                      mvn sonar:sonar \
+                      mvn clean verify sonar:sonar \
                         -Dsonar.projectKey=demo-jenkins \
-                        -Dsonar.host.url=http://localhost:9000
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=sqp_9e1fc6941e8c0696f1e908ccb65da17571a183ab
+
                     """
                 }
             }
