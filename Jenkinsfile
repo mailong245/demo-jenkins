@@ -39,12 +39,15 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv("${SONARQUBE_SERVER}") {
-                    sh """
-                      mvn sonar:sonar \
-                        -Dsonar.projectKey=demo-jenkins \
-                        -Dsonar.host.url=http://sonarqube:9000
-                    """
+                withSonarQubeEnv('sonar') {
+                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                        sh """
+                          mvn sonar:sonar \
+                            -Dsonar.projectKey=demo-jenkins \
+                            -Dsonar.host.url=http://sonarqube:9000 \
+                            -Dsonar.login=$SONAR_TOKEN
+                        """
+                    }
                 }
             }
         }
