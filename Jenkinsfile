@@ -7,7 +7,6 @@ pipeline {
         JAVA_HOME = '/opt/java/openjdk'
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
         SONARQUBE = 'http://localhost:9000'
-        SONARQUBE_SERVER = 'sonar'
     }
 
     stages {
@@ -44,7 +43,7 @@ pipeline {
                         sh """
                           mvn sonar:sonar \
                             -Dsonar.projectKey=demo-jenkins \
-                            -Dsonar.host.url=http://sonarqube:9000 \
+                            -Dsonar.host.url=${SONARQUBE} \
                             -Dsonar.login=$SONAR_TOKEN
                         """
                     }
